@@ -1,0 +1,14 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+        "object-literal-sort-keys": false,
+        "no-shadowed-variable": false,
+        "no-namespace":false,
+        "no-reference":false,
+        "no-console":false,
+        "ban-types":false
+    }
+}

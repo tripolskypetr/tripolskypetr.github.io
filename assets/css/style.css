@@ -1,0 +1,97 @@
+html body {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+p, h2 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+a {
+    text-decoration: none;
+    z-index: 99999;
+}
+
+a:visited {
+    color: initial;
+}
+
+.loader {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+}
+
+.loader.fadeOut {
+    background: #60ce53;
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1.0;
+    }
+    100% {
+        opacity: 0.0;
+        z-index: -5;
+    }
+}
+
+/*.contact {
+    position: fixed;
+    z-index: 999;
+    width: 250px;
+    height: 250px;
+    top: calc(100% - 250px);
+    right: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}*/
+
+.control {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.contacts {
+    visibility: hidden;
+    width: 250px;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+}
+
+.contacts.fadeIn {
+    animation: fadeIn 1.5s forwards 500ms;
+}
+
+@keyframes fadeIn {
+    0% {
+        visibility: visible;
+        opacity: 0.0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1.0;
+    }
+}

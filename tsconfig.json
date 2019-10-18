@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES3",
+        "module": "amd",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "typeRoots" : [
+            "./types",
+        ],
+        "outFile": "./dist/cube.js",
+        "rootDir": "./src/",
+        "declaration": false,
+        "sourceMap": false,
+    },
+    "exclude": [
+        "dist/**"
+    ]
+}
