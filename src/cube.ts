@@ -4,6 +4,12 @@ namespace Cube {
     const SCREEN_HEIGHT: number = window.innerHeight;
     const ASPECT_RATIO: number = SCREEN_WIDTH / SCREEN_HEIGHT;
     const BORDER_SIZE: number = 140;
+
+    interface AnimationConfig {
+        delay: number;
+        total: number;
+    }
+
     class Cube {
 
         private firstTexture: THREE.Texture;
@@ -26,7 +32,7 @@ namespace Cube {
         private focus: FocusWatcher;
         private clock: THREE.Clock;
 
-        constructor(first: string, second: string, third: string) {
+        constructor(first: string, second: string, third: string, config: AnimationConfig) {
 
             this.clock = new THREE.Clock();
 
@@ -46,9 +52,9 @@ namespace Cube {
             this.secondTexture.minFilter = THREE.LinearFilter;
             this.thirdTexture.minFilter = THREE.LinearFilter;
 
-            this.firstAnimator = new AnimatedTexture(this.firstTexture, 122, 1, 122, 250);
-            this.secondAnimator = new AnimatedTexture(this.secondTexture, 122, 1, 122, 250);
-            this.thirdAnimator = new AnimatedTexture(this.thirdTexture, 122, 1, 122, 250);
+            this.firstAnimator = new AnimatedTexture(this.firstTexture, config.total, 1, config.total, config.delay);
+            this.secondAnimator = new AnimatedTexture(this.secondTexture, config.total, 1, config.total, config.delay);
+            this.thirdAnimator = new AnimatedTexture(this.thirdTexture, config.total, 1, config.total, config.delay);
 
             this.firstFace = new THREE.Mesh(
                 new THREE.PlaneGeometry(BORDER_SIZE, BORDER_SIZE, 1, 1),
@@ -105,7 +111,7 @@ namespace Cube {
             let ds = null;
 
             if (x > 0) {
-                dx = (x) => x * -Math.tan(45);
+                dx = (x) => x * -Math.atan(45);
                 dz = (x) => 0;
             } else {
                 dx = (x) => 0;
@@ -131,11 +137,14 @@ namespace Cube {
             requestAnimationFrame(this.animate);
         }
     }
-    export const buildCube = (first: Blob, second: Blob, third: Blob) => {
+    export const buildCube = (first: Blob, second: Blob, third: Blob, isMobile: boolean) => {
         return new Cube(
             URL.createObjectURL(first),
             URL.createObjectURL(second),
-            URL.createObjectURL(third),
+            URL.createObjectURL(third), {
+                delay: isMobile ? 1000 : 250,
+                total: isMobile ? 14 : 122,
+            },
         );
     };
 }

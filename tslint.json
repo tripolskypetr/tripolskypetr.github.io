@@ -6,6 +6,7 @@
     "rules": {
         "object-literal-sort-keys": false,
         "no-shadowed-variable": false,
+        "interface-name": false,
         "no-namespace":false,
         "no-reference":false,
         "no-console":false,

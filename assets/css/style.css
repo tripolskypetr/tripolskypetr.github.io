@@ -81,6 +81,12 @@ a:visited {
     margin: 10px;
 }
 
+@media (min-width: 481px) and (max-width: 767px) {
+    .contacts {
+        width: calc(100% - 30px);
+    }
+}
+
 .contacts.fadeIn {
     animation: fadeIn 1.5s forwards 500ms;
 }

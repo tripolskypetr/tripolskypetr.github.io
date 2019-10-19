@@ -75,7 +75,7 @@ var Cube;
     var ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT;
     var BORDER_SIZE = 140;
     var Cube = /** @class */ (function () {
-        function Cube(first, second, third) {
+        function Cube(first, second, third, config) {
             var _this = this;
             this.resize = function () {
                 _this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -93,7 +93,7 @@ var Cube;
                 var dz = null;
                 var ds = null;
                 if (x > 0) {
-                    dx = function (x) { return x * -Math.tan(45); };
+                    dx = function (x) { return x * -Math.atan(45); };
                     dz = function (x) { return 0; };
                 }
                 else {
@@ -128,9 +128,9 @@ var Cube;
             this.firstTexture.minFilter = THREE.LinearFilter;
             this.secondTexture.minFilter = THREE.LinearFilter;
             this.thirdTexture.minFilter = THREE.LinearFilter;
-            this.firstAnimator = new Cube_1.AnimatedTexture(this.firstTexture, 122, 1, 122, 250);
-            this.secondAnimator = new Cube_1.AnimatedTexture(this.secondTexture, 122, 1, 122, 250);
-            this.thirdAnimator = new Cube_1.AnimatedTexture(this.thirdTexture, 122, 1, 122, 250);
+            this.firstAnimator = new Cube_1.AnimatedTexture(this.firstTexture, config.total, 1, config.total, config.delay);
+            this.secondAnimator = new Cube_1.AnimatedTexture(this.secondTexture, config.total, 1, config.total, config.delay);
+            this.thirdAnimator = new Cube_1.AnimatedTexture(this.thirdTexture, config.total, 1, config.total, config.delay);
             this.firstFace = new THREE.Mesh(new THREE.PlaneGeometry(BORDER_SIZE, BORDER_SIZE, 1, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.firstTexture }));
             this.firstFace.rotation.set(-Math.PI / 2, 0, 0);
             this.firstFace.position.set(0, BORDER_SIZE / 2, 0);
@@ -153,13 +153,17 @@ var Cube;
         }
         return Cube;
     }());
-    Cube_1.buildCube = function (first, second, third) {
-        return new Cube(URL.createObjectURL(first), URL.createObjectURL(second), URL.createObjectURL(third));
+    Cube_1.buildCube = function (first, second, third, isMobile) {
+        return new Cube(URL.createObjectURL(first), URL.createObjectURL(second), URL.createObjectURL(third), {
+            delay: isMobile ? 1000 : 250,
+            total: isMobile ? 14 : 122
+        });
     };
 })(Cube || (Cube = {}));
 var Cube;
 (function (Cube) {
     var _this = this;
+    var DESKTOP_TEXTURE_SIZE = 16384;
     var createPercentManager = function (loader) {
         var firstImage = 0;
         var secondImage = 0;
@@ -181,26 +185,48 @@ var Cube;
             }
         };
     };
+    var getBufferSize = function () {
+        var canvas = document.createElement("canvas");
+        var gl = canvas.getContext("experimental-webgl");
+        var size = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+        return size;
+    };
     Cube.main = function () { return __awaiter(_this, void 0, void 0, function () {
-        var loader, contacts, _a, first, second, third, _b, _c;
+        var buffer, isMobile, loader, contacts, _a, first, second, third, firstImg, secondImg, thirdImg, _b, _c, control, p;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
+                    buffer = getBufferSize();
+                    isMobile = buffer < DESKTOP_TEXTURE_SIZE;
                     loader = document.querySelector(".loader:nth-child(1)");
                     contacts = document.querySelector(".contacts:nth-child(1)");
                     _a = createPercentManager(loader), first = _a.first, second = _a.second, third = _a.third;
+                    firstImg = "./assets/img/" + (isMobile ? "first_mobile.png" : "first.png");
+                    secondImg = "./assets/img/" + (isMobile ? "second_mobile.png" : "second.png");
+                    thirdImg = "./assets/img/" + (isMobile ? "third_mobile.png" : "third.png");
                     _b = Cube.buildCube;
-                    return [4 /*yield*/, Cube.load("./assets/img/first.png", function (v) { return first(v); })];
+                    return [4 /*yield*/, Cube.load(firstImg, function (v) { return first(v); })];
                 case 1:
                     _c = [_d.sent()];
-                    return [4 /*yield*/, Cube.load("./assets/img/second.png", function (v) { return second(v); })];
+                    return [4 /*yield*/, Cube.load(secondImg, function (v) { return second(v); })];
                 case 2:
                     _c = _c.concat([_d.sent()]);
-                    return [4 /*yield*/, Cube.load("./assets/img/third.png", function (v) { return third(v); })];
+                    return [4 /*yield*/, Cube.load(thirdImg, function (v) { return third(v); })];
                 case 3:
-                    _b.apply(void 0, _c.concat([_d.sent()]));
+                    _b.apply(void 0, _c.concat([_d.sent(),
+                        isMobile]));
                     loader.classList.add("fadeOut");
                     contacts.classList.add("fadeIn");
+                    if (isMobile) {
+                        control = document.querySelector(".control");
+                        p = document.createElement("p");
+                        p.innerHTML = "Low graphics card or driver detected<br>";
+                        p.innerHTML += "<small>gl.MAX_TEXTURE_SIZE = " + buffer + "</small>";
+                        p.style.paddingBottom = "15px";
+                        p.style.textAlign = "center";
+                        p.style.color = "orange";
+                        control.appendChild(p);
+                    }
                     return [2 /*return*/];
             }
         });

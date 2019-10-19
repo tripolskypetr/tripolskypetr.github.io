@@ -38,6 +38,13 @@ def process_mat(umat, height, width):
     if len(first_rect)%25 == 0:
         print("Total: ", len(first_rect))
 
+def take_frames(umat_list, *args, **kwargs):
+    if "slice" in kwargs:
+        umat_list = umat_list[kwargs["slice"]:]
+    if len(args) != 0:
+        umat_list = [ umat_list[i] for i in args]
+    return umat_list
+
 cap = cv.VideoCapture('../media/cutted.mp4')
 
 while(cap.isOpened()):
@@ -50,6 +57,12 @@ while(cap.isOpened()):
             process_mat(cv.UMat(frame), height, width)
     else:
         break
+
+args, kwargs = (range(0, 14), {"slice": 52})
+
+first_rect = take_frames(first_rect, *args, **kwargs)
+second_rect = take_frames(second_rect, *args, **kwargs)
+third_rect = take_frames(third_rect, *args, **kwargs)
 
 cv.imwrite("first.png", join_mat(first_rect, channels, dtype))
 cv.imwrite("second.png", join_mat(second_rect, channels, dtype))
