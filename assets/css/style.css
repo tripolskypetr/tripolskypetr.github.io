@@ -81,9 +81,10 @@ a:visited {
     margin: 10px;
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 280px) and (max-width: 767px) {
     .contacts {
         width: calc(100% - 30px);
+        order: 2;
     }
 }
 
