@@ -4,6 +4,7 @@ namespace Cube {
     const SCREEN_HEIGHT: number = window.innerHeight;
     const ASPECT_RATIO: number = SCREEN_WIDTH / SCREEN_HEIGHT;
     const BORDER_SIZE: number = 140;
+    const STEP = 1.5485;
 
     interface AnimationConfig {
         delay: number;
@@ -111,11 +112,11 @@ namespace Cube {
             let ds = null;
 
             if (x > 0) {
-                dx = (x) => x * -Math.atan(45);
+                dx = (x) => x * -STEP;
                 dz = (x) => 0;
             } else {
                 dx = (x) => 0;
-                dz = (x) => x * Math.atan(45);
+                dz = (x) => x * STEP;
             }
 
             if (y > 0) {
@@ -124,10 +125,7 @@ namespace Cube {
                 dy = (y) => y * -Math.atan(y);
             }
 
-            ds = (x, y) => {
-                /* debug: console.log({x,y})*/
-                return Math.abs(Math.min(x, y));
-            };
+            ds = (x, y) => Math.abs(Math.min(x, y));
 
             this.camera.position.set(250 + dx(x) + ds(x, y), 250 + dy(y), 250 + dz(x) + ds(x, y));
 

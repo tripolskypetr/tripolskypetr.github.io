@@ -74,6 +74,7 @@ var Cube;
     var SCREEN_HEIGHT = window.innerHeight;
     var ASPECT_RATIO = SCREEN_WIDTH / SCREEN_HEIGHT;
     var BORDER_SIZE = 140;
+    var STEP = 1.5485;
     var Cube = /** @class */ (function () {
         function Cube(first, second, third, config) {
             var _this = this;
@@ -93,12 +94,12 @@ var Cube;
                 var dz = null;
                 var ds = null;
                 if (x > 0) {
-                    dx = function (x) { return x * -Math.atan(45); };
+                    dx = function (x) { return x * -STEP; };
                     dz = function (x) { return 0; };
                 }
                 else {
                     dx = function (x) { return 0; };
-                    dz = function (x) { return x * Math.atan(45); };
+                    dz = function (x) { return x * STEP; };
                 }
                 if (y > 0) {
                     dy = function (y) { return y * Math.atan(y); };
@@ -106,10 +107,7 @@ var Cube;
                 else {
                     dy = function (y) { return y * -Math.atan(y); };
                 }
-                ds = function (x, y) {
-                    /* debug: console.log({x,y})*/
-                    return Math.abs(Math.min(x, y));
-                };
+                ds = function (x, y) { return Math.abs(Math.min(x, y)); };
                 _this.camera.position.set(250 + dx(x) + ds(x, y), 250 + dy(y), 250 + dz(x) + ds(x, y));
                 _this.camera.lookAt(new THREE.Vector3(0, 0, 0));
                 _this.renderer.render(_this.scene, _this.camera);
