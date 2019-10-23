@@ -36,10 +36,15 @@ namespace Cube {
         const firstImg = `./assets/img/${isMobile ? "first_mobile.png" : "first.png"}`;
         const secondImg = `./assets/img/${isMobile ? "second_mobile.png" : "second.png"}`;
         const thirdImg = `./assets/img/${isMobile ? "third_mobile.png" : "third.png"}`;
+        const images = await Promise.all([
+            load(firstImg, (v) => first(v)),
+            load(secondImg, (v) => second(v)),
+            load(thirdImg, (v) => third(v)),
+        ]);
         buildCube(
-            await load(firstImg, (v) => first(v)),
-            await load(secondImg, (v) => second(v)),
-            await load(thirdImg, (v) => third(v)),
+            images[0],
+            images[1],
+            images[2],
             isMobile,
         );
         loader.classList.add("fadeOut");

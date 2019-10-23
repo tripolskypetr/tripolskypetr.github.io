@@ -190,9 +190,9 @@ var Cube;
         return size;
     };
     Cube.main = function () { return __awaiter(_this, void 0, void 0, function () {
-        var buffer, isMobile, loader, contacts, _a, first, second, third, firstImg, secondImg, thirdImg, _b, _c, control, p;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var buffer, isMobile, loader, contacts, _a, first, second, third, firstImg, secondImg, thirdImg, images, control, p;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     buffer = getBufferSize();
                     isMobile = buffer < DESKTOP_TEXTURE_SIZE;
@@ -202,17 +202,14 @@ var Cube;
                     firstImg = "./assets/img/" + (isMobile ? "first_mobile.png" : "first.png");
                     secondImg = "./assets/img/" + (isMobile ? "second_mobile.png" : "second.png");
                     thirdImg = "./assets/img/" + (isMobile ? "third_mobile.png" : "third.png");
-                    _b = Cube.buildCube;
-                    return [4 /*yield*/, Cube.load(firstImg, function (v) { return first(v); })];
+                    return [4 /*yield*/, Promise.all([
+                            Cube.load(firstImg, function (v) { return first(v); }),
+                            Cube.load(secondImg, function (v) { return second(v); }),
+                            Cube.load(thirdImg, function (v) { return third(v); }),
+                        ])];
                 case 1:
-                    _c = [_d.sent()];
-                    return [4 /*yield*/, Cube.load(secondImg, function (v) { return second(v); })];
-                case 2:
-                    _c = _c.concat([_d.sent()]);
-                    return [4 /*yield*/, Cube.load(thirdImg, function (v) { return third(v); })];
-                case 3:
-                    _b.apply(void 0, _c.concat([_d.sent(),
-                        isMobile]));
+                    images = _b.sent();
+                    Cube.buildCube(images[0], images[1], images[2], isMobile);
                     loader.classList.add("fadeOut");
                     contacts.classList.add("fadeIn");
                     if (isMobile) {
