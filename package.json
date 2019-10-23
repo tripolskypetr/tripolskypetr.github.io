@@ -1,0 +1,31 @@
+{
+  "name": "tripolskypetr.github.io",
+  "version": "1.0.0",
+  "description": "TypeScript Programmer CV",
+  "scripts": {
+    "test": "npx tsc&&open index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tripolskypetr/tripolskypetr.github.io.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "WebGL",
+    "Three.js",
+    "Landing",
+    "Programmer",
+    "CV"
+  ],
+  "author": "Petr Tripolsky",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/tripolskypetr/tripolskypetr.github.io/issues"
+  },
+  "homepage": "https://github.com/tripolskypetr/tripolskypetr.github.io#readme",
+  "dependencies": {
+    "npm": "^6.12.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4"
+  }
+}
