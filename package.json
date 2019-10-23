@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "TypeScript Programmer CV",
   "scripts": {
+    "tsc": "tsc",
     "test": "npx tsc&&open index.html"
   },
   "repository": {
