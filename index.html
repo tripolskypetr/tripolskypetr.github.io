@@ -11,6 +11,17 @@
         <!--meta http-equiv="refresh" content="60"-->
         <meta charset="utf-8">
         <title>CubeV3</title>
+        <style>
+            .placeholder {
+                visibility: hidden;
+                position:fixed;
+                top: 0px;
+                left: 0px;
+                height: 0px;
+                width: 0px;
+                z-index: -999;
+            }
+        </style>
     </head>
     <body>
         <div class="loader">0%</div>
@@ -28,5 +39,6 @@
         <script>
             Cube.main();    
         </script>
+        <img src="./assets/img/screenshot.png" class="placeholder">
     </body>
 </html>
