@@ -15,6 +15,7 @@ p, h2 {
 
 a {
     text-decoration: none;
+    color: initial;
     z-index: 99999;
 }
 
@@ -75,13 +76,13 @@ a:visited {
 
 .contacts {
     visibility: hidden;
-    width: 250px;
+    width: 350px;
     border: 1px solid black;
     padding: 5px;
     margin: 10px;
 }
 
-@media (min-width: 280px) and (max-width: 767px) {
+@media (max-width: 767px) {
     .contacts {
         width: calc(100% - 30px);
         order: 2;
@@ -101,4 +102,15 @@ a:visited {
         visibility: visible;
         opacity: 1.0;
     }
+}
+
+.about {
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    max-height: 120px;
+}
+
+.about>img {
+    padding-right: 5px;
 }
